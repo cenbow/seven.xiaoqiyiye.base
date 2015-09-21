@@ -1,5 +1,7 @@
 package seven.xiaoqiyiye.netty.line;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -12,8 +14,8 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter{
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		//发送query time给服务端
-		//这里不需要再传ByteBuf，可以直接传字符串
-		ctx.writeAndFlush("query time");
+		ByteBuf msg = Unpooled.copiedBuffer("query time".getBytes());
+		ctx.writeAndFlush(msg);
 	}
 
 	@Override

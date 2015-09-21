@@ -1,6 +1,7 @@
 package seven.xiaoqiyiye.netty.line;
 
 
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -19,7 +20,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 		System.out.println("server receives:" + recv);
 		//响应当前时间给客户端，这里需要写ByteBuf
 		String time = sdf.format(new Date());
-		ctx.write(time);
+		ctx.write(Unpooled.copiedBuffer(time.getBytes()));
 	}
 
 	@Override
