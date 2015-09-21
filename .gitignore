@@ -1,0 +1,5 @@
+*.class
+*.prefs
+seven.xiaoqiyiye.netty/target/classes/META-INF/MANIFEST.MF
+seven.xiaoqiyiye.netty/target/classes/META-INF/maven/seven.xiaoqiyiye/netty/pom.xml
+seven.xiaoqiyiye.netty/target/classes/META-INF/maven/seven.xiaoqiyiye/netty/pom.properties
