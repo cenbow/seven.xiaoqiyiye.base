@@ -12,23 +12,31 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 public class TimeClient {
 
 	public void connection(String host, int port) throws Exception{
-		NioEventLoopGroup workerGroup = new NioEventLoopGroup();
+		//定义主线程组，处理轮询
+		NioEventLoopGroup bossGroup = new NioEventLoopGroup();
 		try {
+			//这是客户端的启动类
 			Bootstrap bs = new Bootstrap();
-			bs.group(workerGroup)
-				.option(ChannelOption.TCP_NODELAY, true)
-				.channel(NioSocketChannel.class)
-				.handler(new ChannelInitializer<SocketChannel>() {
+			//设置线程组
+			bs.group(bossGroup)
+			//设置option参数
+			.option(ChannelOption.TCP_NODELAY, true)
+			//设置客户端SocketChannel
+			.channel(NioSocketChannel.class)
+			//设置客户端处理器
+			.handler(new ChannelInitializer<SocketChannel>() {
 
 					@Override
 					protected void initChannel(SocketChannel ch) throws Exception {
 						ch.pipeline().addLast(new TimeClientHandler());
 					}
 				});
+			//连接到服务器端
 			ChannelFuture future = bs.connect(host, port).sync();
 			future.channel().closeFuture().sync();
 		} finally{
-			workerGroup.shutdownGracefully();
+			//优雅退出
+			bossGroup.shutdownGracefully();
 		}
 	}
 	
