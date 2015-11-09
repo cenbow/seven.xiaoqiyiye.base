@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>seven.xiaoqiyiye</groupId>
+	<artifactId>seven-xiaoqiyiye-persistence</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<spring.version>4.0.2.RELEASE</spring.version>
+
+		<!-- mybatis-generator代码生成器 -->
+		
+		<!-- 定义数据库信息 -->
+		<!-- 定义驱动jar包路径 -->
+		<mybatis.jdbcJarpath>E:/MyRoot/Software/Apache/Maven/Repository/mysql/mysql-connector-java/5.1.15/mysql-connector-java-5.1.15.jar</mybatis.jdbcJarpath>
+		<mybatis.jdbcDriver>com.mysql.jdbc.Driver</mybatis.jdbcDriver>
+		<mybatis.jdbcURL>jdbc:mysql://127.0.0.1:3306/test</mybatis.jdbcURL>
+		<mybatis.schema>test</mybatis.schema>
+		<mybatis.username>root</mybatis.username>
+		<mybatis.jdbcPassword>123</mybatis.jdbcPassword>
+
+		<!-- 定义生成文件包路径 -->
+		<!-- 模型类包路径 -->
+		<mybatis.package.model>seven.xiaoqiyiye.model</mybatis.package.model>
+		<!-- mapper类型包路径 -->
+		<mybatis.package.mapper>seven.xiaoqiyiye.mapper</mybatis.package.mapper>
+		<mybatis.outputDirectory>${project.build.sourceDirectory}</mybatis.outputDirectory>
+		
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-core</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.15</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.5</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.0</version>
+				<configuration>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

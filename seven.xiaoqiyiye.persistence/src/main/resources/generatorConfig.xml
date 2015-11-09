@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<!-- 配置数据库jar包 -->
+	<classPathEntry location="${mybatis.jdbcJarpath}" />
+
+	<context id="MYSQLTables" targetRuntime="MyBatis3">
+	
+		<!-- 
+		<plugin type="com.cairenhui.tnstock.plugins.MysqlPaginateSupportPlugin"></plugin>
+		 -->
+		 <commentGenerator>
+		 	<property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+			<property name="suppressDate" value="true" /> <!-- 是否生成注释代时间戳-->
+		 </commentGenerator>
+		 
+		<!-- 配置连接信息 -->
+		<jdbcConnection driverClass="${mybatis.jdbcDriver}"
+						connectionURL="${mybatis.jdbcURL}"
+						userId="${mybatis.username}" 
+						password="${mybatis.jdbcPassword}">
+		</jdbcConnection>
+	
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="${mybatis.package.model}"
+			targetProject="${mybatis.outputDirectory}">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="${mybatis.package.mapper}"
+			targetProject="${mybatis.outputDirectory}/../resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="org.mybatis.generator.codegen.mybatis3.javamapper.JavaMapperGenerator"
+			targetPackage="${mybatis.package.mapper}" targetProject="${mybatis.outputDirectory}">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		
+		<!-- 使用alias属性表示是否需要自动生成代码， false-不生成，true-自动生成 -->
+		
+		<table schema="${mybatis.schema}" tableName="table_goods" domainObjectName="Goods" alias="false"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			selectByExampleQueryId="false"></table>
+			
+		<table schema="${mybatis.schema}" tableName="user_profile" domainObjectName="UserProfile" alias="true"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableSelectByExample="false" enableDeleteByExample="false"
+			selectByExampleQueryId="false"></table>
+		
+	</context>
+</generatorConfiguration>
