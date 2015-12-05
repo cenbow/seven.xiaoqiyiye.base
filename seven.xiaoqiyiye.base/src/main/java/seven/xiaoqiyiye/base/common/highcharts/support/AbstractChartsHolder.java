@@ -16,13 +16,11 @@ public abstract class AbstractChartsHolder<T extends StatisticsObject> implement
 	
 	NameConvertor convertor; 
 
-	@Override
     public void setStatisticsObjectDatas(List<T> data) {
 	    this.statisticsObjectDatas = data;
     }
 	
 	
-	@Override
     public void setNameConvertor(NameConvertor convertor) {
 		this.convertor = convertor; 
     }
@@ -36,7 +34,6 @@ public abstract class AbstractChartsHolder<T extends StatisticsObject> implement
 
 
 	class DefaultNameConvertor implements NameConvertor{
-		@Override
         public String convert(String key) {
 			return key;
         }

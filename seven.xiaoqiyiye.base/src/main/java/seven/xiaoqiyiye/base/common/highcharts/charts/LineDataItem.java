@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressWarnings("rawtypes")
 public class LineDataItem extends DataItem {
-	
+
 	List data;
 	
 	public LineDataItem(){
@@ -25,7 +26,8 @@ public class LineDataItem extends DataItem {
     	this.data = data;
     }
     
-    public void addItem(Object itemData){
+    @SuppressWarnings("unchecked")
+	public void addItem(Object itemData){
     	data.add(itemData);
     }
 

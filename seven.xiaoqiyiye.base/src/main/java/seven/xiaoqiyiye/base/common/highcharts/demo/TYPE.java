@@ -1,4 +1,4 @@
-package com.hikvision.cms.modules.common.highcharts.demo;
+package seven.xiaoqiyiye.base.common.highcharts.demo;
 
 public enum TYPE {
 	ONE("1", "类型一"),

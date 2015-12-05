@@ -3,12 +3,14 @@ package seven.xiaoqiyiye.base.common.highcharts.demo;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
+
 import seven.xiaoqiyiye.base.common.highcharts.ChartsHolder;
 import seven.xiaoqiyiye.base.common.highcharts.HighChartsException;
+import seven.xiaoqiyiye.base.common.highcharts.NameConvertor;
 import seven.xiaoqiyiye.base.common.highcharts.charts.ChartsData;
 import seven.xiaoqiyiye.base.common.highcharts.support.PieChartsHolder;
 
-import net.sf.json.JSONObject;
 
 
 
@@ -56,7 +58,6 @@ public class PieChartsDemo {
 		//3.设置x轴在页面上显示的名称（这个也可以不设置，不设置时将不会名称转换，使用key返回页面显示）
 		lineHolder.setNameConvertor(new NameConvertor() {
 			
-			@Override
 			public String convert(String key) {
 				//这里的key是x轴项的值
 				return TYPE.getNameByType(key);
@@ -67,7 +68,7 @@ public class PieChartsDemo {
 		ChartsData lineData = lineHolder.getChartData();
 		
 		//打印数据结构
-		String jsonStr = JSONObject.fromObject(lineData).toString();
+		String jsonStr = JSONObject.toJSONString(lineData);
 		System.out.println(jsonStr);
 		
 		//饼图数据没有categories

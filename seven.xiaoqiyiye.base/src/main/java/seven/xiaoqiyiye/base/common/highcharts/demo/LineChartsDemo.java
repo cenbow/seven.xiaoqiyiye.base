@@ -68,7 +68,6 @@ public class LineChartsDemo {
 		//2.GroupHandler用户处理y轴分组项
 		GroupObjectFactory<StatisticsObject> groupHandler = new GroupObjectFactory<StatisticsObject>() {
 
-			@Override
             public GroupObject group(StatisticsObject t) {
 				LineStatisticsObject tt = (LineStatisticsObject) t;
 				//设置分组规则:
@@ -78,7 +77,6 @@ public class LineChartsDemo {
 	            return new GroupObject(t.getKey(), tt.getType(), t.getCount());
             }
 
-			@Override
             public String convert(String key) {
 				//设置y轴在页面上显示的名称，这里的key是y轴项的值
 	            return TYPE.getNameByType(key);
@@ -95,7 +93,6 @@ public class LineChartsDemo {
 		//5.设置x轴在页面上显示的名称（这个也可以不设置，不设置时将不会名称转换，使用key返回页面显示）
 		lineHolder.setNameConvertor(new NameConvertor() {
 			
-			@Override
 			public String convert(String key) {
 				//这里的key是x轴项的值
 				return key + ":00";
@@ -106,7 +103,7 @@ public class LineChartsDemo {
 		ChartsData lineData = lineHolder.getChartData();
 		
 		//打印数据结构
-		String jsonStr = JSONObject.fromObject(lineData).toString();
+		String jsonStr = JSONObject.toJSONString(lineData);
 		System.out.println(jsonStr);
 		/*
 		 * {
