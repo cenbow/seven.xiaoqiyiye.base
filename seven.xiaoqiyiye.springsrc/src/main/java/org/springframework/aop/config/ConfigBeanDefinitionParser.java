@@ -113,6 +113,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 				parseAdvisor(elt, parserContext);
 			}
 			else if (ASPECT.equals(localName)) {
+				//解析<aop:aspect>
 				parseAspect(elt, parserContext);
 			}
 		}
@@ -193,7 +194,24 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 		return advisorDefinition;
 	}
 
+	
+	/**
+	 * 解析<aop:aspect>
+	 * 
+	 * <aop:aspect id="" ref="xxxAspect">
+	 * 		<aop:declare-parents/>
+	 * 		<aop:pointcut id="pointcutName" />
+	 *      <aop:before pointcut-ref="pointcutName" method="methodBefore"/>
+	 *      <aop:after pointcut-ref="pointcutName" method="methodAfter"/>
+	 *      <aop:around pointcut-ref="pointcutName" method="methodAround"/>
+	 *      <aop:after-returning pointcut-ref="pointcutName" method="methodAfterReturning" returning="result"/>
+	 *      <aop:after-throwing pointcut-ref="pointcutName" method="methodAfterThrowing" throwing="ex"/>
+	 * </aop:aspect>
+	 * 
+	 */
 	private void parseAspect(Element aspectElement, ParserContext parserContext) {
+		
+		//获取id和ref，ref引用一个定义好的切面Bean
 		String aspectId = aspectElement.getAttribute(ID);
 		String aspectName = aspectElement.getAttribute(REF);
 
@@ -201,7 +219,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 			this.parseState.push(new AspectEntry(aspectId, aspectName));
 			List<BeanDefinition> beanDefinitions = new ArrayList<BeanDefinition>();
 			List<BeanReference> beanReferences = new ArrayList<BeanReference>();
-
+			//获取<aop:declare-parents>节点元素，并解析成BeanDefinition
 			List<Element> declareParents = DomUtils.getChildElementsByTagName(aspectElement, DECLARE_PARENTS);
 			for (int i = METHOD_INDEX; i < declareParents.size(); i++) {
 				Element declareParentsElement = declareParents.get(i);
@@ -214,6 +232,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 			boolean adviceFoundAlready = false;
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				Node node = nodeList.item(i);
+				//判断节点元素是否是<aop:before>、<aop:after>、<aop:around>、<aop:after-returning>、<aop:after-throwing>
 				if (isAdviceNode(node, parserContext)) {
 					if (!adviceFoundAlready) {
 						adviceFoundAlready = true;
@@ -223,8 +242,10 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 									aspectElement, this.parseState.snapshot());
 							return;
 						}
+						//将引用的切面Bean放入到beanReferences中（只执行一次）
 						beanReferences.add(new RuntimeBeanReference(aspectName));
 					}
+					//逐一解析Advice，并将解析的advisorDefinition放入到beanDefinitions中
 					AbstractBeanDefinition advisorDefinition = parseAdvice(
 							aspectName, i, aspectElement, (Element) node, parserContext, beanDefinitions, beanReferences);
 					beanDefinitions.add(advisorDefinition);
@@ -235,6 +256,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 					aspectElement, aspectId, beanDefinitions, beanReferences, parserContext);
 			parserContext.pushContainingComponent(aspectComponentDefinition);
 
+			//获取<aop:pointcut>节点元素，解析并注册
 			List<Element> pointcuts = DomUtils.getChildElementsByTagName(aspectElement, POINTCUT);
 			for (Element pointcutElement : pointcuts) {
 				parsePointcut(pointcutElement, parserContext);
