@@ -17,6 +17,7 @@
 	default-lazy-init="true">
 
 	<!-- Aop -->
+	<!-- 
 	<bean id="aspectEx1" class="seven.xiaoqiyiye.spring.aop.ex01.Aspect"></bean>
 	<bean id="serviceEx1" class="seven.xiaoqiyiye.spring.aop.ex01.Service"></bean>
 	<aop:config>
@@ -30,6 +31,24 @@
 			<aop:after-throwing pointcut-ref="pointcut" method="throwing" throwing="ex"/>
 		</aop:aspect>
 	</aop:config>
+	 -->
+	 
+	<bean id="ex2Service" class="seven.xiaoqiyiye.spring.aop.ex02.ServiceImpl"></bean>
+	<bean id="ex2Before" class="seven.xiaoqiyiye.spring.aop.ex02.BeforeAdvice"></bean>
+	<bean id="ex2After" class="seven.xiaoqiyiye.spring.aop.ex02.AfterAdvice"></bean>
+	<bean id="proxyEx2Service" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>seven.xiaoqiyiye.spring.aop.ex02.Service</value>
+		</property>
+		<property name="target" ref="ex2Service"/>
+		<property name="interceptorNames">
+			<list>
+				<value>ex2Before</value>
+				<value>ex2After</value>
+			</list>
+		</property>
+	</bean>
+	
 	<!-- Cache -->
 	<!-- 
 
