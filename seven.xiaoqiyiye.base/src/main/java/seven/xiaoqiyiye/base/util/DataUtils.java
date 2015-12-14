@@ -136,6 +136,17 @@ public class DataUtils {
 		return toFloat(val, 0F);
 	}
 	
+	public static String toString(Object val, String def) {
+		if (val == null) {
+			return def;
+		}
+		return String.valueOf(val.toString());
+	}
+	
+	public static String toString(Object val){
+		return toString(val, "");
+	}
+	
 	public static boolean toBoolean(Object val, boolean def) {
 		if (val == null) {
 			return def;
