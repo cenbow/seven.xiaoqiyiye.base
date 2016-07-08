@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+	<bean class="seven.xiaoqiyiye.base.common.PropertyPlaceholderConfigurerHelper">
+		<property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+	</bean>
+
+    <!-- 配置Redis缓存 -->
+    <cache:annotation-driven/>
+    <bean id="jedisConnectionFactory" class="seven.xiaoqiyiye.base.common.redis.ConfigurationableJedisConnectionFactory"/>
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer">
+        	<bean class="seven.xiaoqiyiye.base.common.redis.ObjectRedisSerializer" />
+        </property>
+        <property name="valueSerializer">
+        	<bean class="seven.xiaoqiyiye.base.common.redis.FastJsonRedisSerializer"/>
+        </property>
+    </bean>
+    
+    <bean id="cacheManager" class="seven.xiaoqiyiye.base.common.redis.DynamicCacheNameRedisCacheManager">
+        <constructor-arg index="0" ref="redisTemplate"/>
+        <property name="defaultExpiration" value="600"/>
+        <property name="usePrefix" value="true"/>
+    </bean>
+    
+</beans>

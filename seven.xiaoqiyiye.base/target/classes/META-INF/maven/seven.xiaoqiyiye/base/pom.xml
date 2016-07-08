@@ -5,8 +5,14 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>seven.xiaoqiyiye.base</name>
   
+  <properties>
+      <spring.version>4.0.2.RELEASE</spring.version>
+      <mina.version>2.0.9</mina.version>
+  </properties>
+    
   <dependencies>
   
+  <!-- 日志包 -->
   	<dependency>
 		<groupId>log4j</groupId>
 		<artifactId>log4j</artifactId>
@@ -18,37 +24,71 @@
 	    <version>3.1.0</version>
 	    <scope>provided</scope>
   	</dependency>
+  	
+  	<!-- 测试包 -->
 	<dependency>
-	    <groupId>org.apache.mina</groupId>
-	    <artifactId>mina-core</artifactId>
-	    <version>2.0.9</version>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.8</version>
+		<scope>test</scope>
 	</dependency>
+
 	<!-- Spring相关 -->
-	  	<dependency>
+	<dependency>
   		<groupId>org.springframework</groupId>
 		<artifactId>spring-core</artifactId>
-		<version>4.0.2.RELEASE</version>
+		<version>${spring.version}</version>
   	</dependency>
+  	<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+	</dependency>
+  	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+  	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
 		<artifactId>spring-web</artifactId>
-		<version>4.0.2.RELEASE</version>
+		<version>${spring.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
 		<artifactId>spring-webmvc</artifactId>
-		<version>4.0.2.RELEASE</version>
+		<version>${spring.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
 		<artifactId>spring-jdbc</artifactId>
-		<version>4.0.2.RELEASE</version>
+		<version>${spring.version}</version>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
 		<artifactId>spring-orm</artifactId>
-		<version>4.0.2.RELEASE</version>
+		<version>${spring.version}</version>
   	</dependency>
+  	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+		<version>1.7.1</version>
+	</dependency>
   	<dependency>
 		<groupId>org.codehaus.jackson</groupId>
 		<artifactId>jackson-core-lgpl</artifactId>
@@ -59,12 +99,14 @@
 		<artifactId>jackson-mapper-asl</artifactId>
 		<version>1.9.13</version>
 	</dependency>
-  	<dependency>
-		<groupId>com.alibaba</groupId>
-		<artifactId>fastjson</artifactId>
-		<version>1.2.4</version>
+	
+    <!-- Mina -->
+    <dependency>
+	    <groupId>org.apache.mina</groupId>
+	    <artifactId>mina-core</artifactId>
+	    <version>${mina.version}</version>
 	</dependency>
-  
+    
   	<!-- Apache poi相关包 -->
   	<dependency>
 	  	<groupId>org.apache.poi</groupId>
@@ -88,7 +130,7 @@
 	    <version>2.6.0</version>
   	</dependency>
   	
-  	<!-- fileupload相关 -->
+  	<!-- 工具包相关 -->
   	<dependency>
 		<groupId>commons-fileupload</groupId>
 		<artifactId>commons-fileupload</artifactId>
@@ -99,7 +141,44 @@
 		<artifactId>commons-io</artifactId>
 		<version>1.2</version>
 	</dependency>
+  	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.2.4</version>
+	</dependency>
 
+	<!-- Redis相关 -->
+	<dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+		<version>2.5.2</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-redis</artifactId>
+		<version>1.4.2.RELEASE</version>
+		<exclusions>
+			<exclusion>
+				<groupId>org.springframework</groupId>
+				<artifactId>*</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	
+	<!-- Kafka包 -->
+	<dependency>
+		<groupId>org.apache.kafka</groupId>
+		<artifactId>kafka_2.10</artifactId>
+		<version>0.8.0</version>
+	</dependency>
+	
+	<!-- Disruptor包 -->
+	<dependency>
+		<groupId>com.googlecode.disruptor</groupId>
+		<artifactId>disruptor</artifactId>
+		<version>2.10.4</version>
+	</dependency>
+	
   </dependencies>
   <build/>
 </project>

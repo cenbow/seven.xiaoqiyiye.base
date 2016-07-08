@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <!-- 配置Redis缓存 -->
+    <cache:annotation-driven/>
+    <bean id="jedisConnectionFactory" class="com.qdlc.p2p.common.core.redis.ConfigurationableJedisConnectionFactory"/>
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer">
+        	<bean class="com.qdlc.p2p.common.core.redis.ObjectRedisSerializer" />
+        </property>
+        <property name="valueSerializer">
+        	<bean class="com.qdlc.p2p.common.core.redis.FastJsonRedisSerializer"/>
+        </property>
+    </bean>
+    
+    <bean class="com.qdlc.p2p.common.core.redis.JedisCacheFactory"/>
+    
+    <bean id="cacheManager" class="com.qdlc.p2p.common.core.redis.DynamicCacheNameRedisCacheManager">
+        <constructor-arg index="0" ref="redisTemplate"/>
+        <property name="defaultExpiration" value="600"/>
+        <property name="usePrefix" value="true"/>
+    </bean>
+</beans>

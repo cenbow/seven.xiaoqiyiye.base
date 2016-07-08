@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 配置线程池和队列 -->
+	<bean class="com.qdlc.p2p.common.core.queue.queue.ConcurrentQueueHandler">
+		<property name="taskExecutor">
+			<bean id="taskExecutor" class ="org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean" >
+				<property name="corePoolSize" value="10"/>
+		        <property name="maxPoolSize" value="100"/>
+				<property name ="queueCapacity" value ="1000"/>
+		        <property name="keepAliveSeconds" value="300"/>
+			</bean>
+		</property>
+	</bean>
+
+<!--	<bean class="com.qdlc.p2p.common.core.queue.queue.KafkaQueueHandler">
+		<property name="producerProperties">
+		    <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		        <property name="locations">
+		            <list>
+		                <value>classpath:kafka-client.properties</value>
+		            </list>
+		        </property>
+		    </bean>
+		</property>
+		<property name="consumerProperties">
+		    <bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		        <property name="locations">
+		            <list>
+		                <value>classpath:kafka-server.properties</value>
+		            </list>
+		        </property>
+		    </bean>
+		</property>
+	</bean>-->
+
+</beans>
